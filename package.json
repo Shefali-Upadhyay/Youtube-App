@@ -1,0 +1,14 @@
+{
+  "name": "youtubeapi",
+  "version": "1.0.0",
+  "description": "youtube with youtube api",
+  "main": "index.js",
+  "scripts": { "build": "babel src --out-dir dist"},
+  "author": "Shefali Upadhyay",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5"
+  }
+}
