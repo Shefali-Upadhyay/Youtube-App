@@ -38,19 +38,26 @@
       <h1 class="titlename text-center pb-4"><img src="img/580b57fcd9996e24bc43c545.png" height="50" class="mr-2 mb-1" alt="mdb logo">Youtube APP</h1>
       <div class="container rounded text-center bg-success mb-4">
         <div class="container input-group py-4">
-          <input type="text" id="youtube_search" placeholder="Search" class="form-control" autocomplete="on">
+          <input type="text" id="youtube_search" placeholder="Search" class="form-control">
           <div class="input-group-append">
             <button type="button" class="btn btn-primary" id="search"><i class="fa fa-search" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
-      <div class="container" id="videoDisplay">
-        <!-- video search result -->
+      <div>
+        <h1 class="titlename text-center" id="result">Search Results</h1>
+        <div class="container" id="videoDisplay">
+          <!-- video search result -->
+        </div>
       </div>
     </div>
 
     <!-- JavaScripts -->
     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
     <script type="text/javascript" src="./dist/app.js"></script> 
 
   </body>
