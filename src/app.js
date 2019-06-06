@@ -26,40 +26,47 @@ function paginate(e, obj) {
 
 function execute() {
   const searchString = keywordInput.value;
-  var arr_search = {
-  part: 'snippet',
-  type: 'video',
-  maxResults: 10,
-  q: searchString
-  };
-
-  if (pageToken != '') {
-    arr_search.pageToken = pageToken;
-  }
-
-  return gapi.client.youtube.search.list(arr_search)
-  .then(function(response) {
-    const listItems = response.result.items;
-    if (listItems) {
-      let output = '<h1 class="titlename text-center">Search Results</h1>';
-      listItems.forEach(item => {
-        const vidTitle = item.snippet.title;  
-        const vidDescription =  item.snippet.description;
-        const vidThumburl =  item.snippet.thumbnails.default.url;
-        const vidId = item.id.videoId;  
-        const channel = item.snippet.channelTitle;
-        output += `<div class="border rounded border-dark p-3 mb-2 bg-white"><div class="row align-items-center"><div class="col-sm-6 col-md-4 col-lg-3 col-xl-3"><a href="#myModal" data-toggle="modal" data-target="#myModal${vidId}"><img src="${vidThumburl}" alt="No  Image Available." style="width:204px;height:128px"></a><div class="modal" id="myModal${vidId}"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">${vidTitle}</h5><button class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><iframe width="420" height="315" src="https://www.youtube.com/embed/${vidId}" frameborder="0" allowfullscreen></iframe></div><div class="modal-footer"><button class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div></div><div class="col-sm-6 col-md-8 col-lg-9 col-xl-9"><h1 class="title">${vidTitle}</h1><h3>Owned By : ${channel}</h3><p>${vidDescription}</p></div></div></div>`;
-      });
-
-      if (response.result.prevPageToken) {
-        output += `<br><button type="button" class="btn btn-primary" data-id="${response.result.prevPageToken}" onclick="paginate(event, this)">Prev</button>`;
-      }
-
-      if (response.result.nextPageToken) {
-        output += `&nbsp<button type="button" class="btn btn-primary" data-id="${response.result.nextPageToken}" onclick="paginate(event, this)">Next</button>`;
-      } 
-      videoList.innerHTML = output;
+  if(searchString)
+  {
+    var arr_search = {
+      part: 'snippet',
+      type: 'video',
+      maxResults: 10,
+      q: searchString
+    };
+    
+    if (pageToken != '') {
+      arr_search.pageToken = pageToken;
     }
-  },
-  function(err) { console.error("Execute error", err); });
+    
+    return gapi.client.youtube.search.list(arr_search)
+    .then(function(response) {
+      const listItems = response.result.items;
+      if (listItems) {
+        let output = '<h1 class="titlename text-center">Search Results</h1>';
+        listItems.forEach(item => {
+          const vidTitle = item.snippet.title;  
+          const vidDescription =  item.snippet.description;
+          const vidThumburl =  item.snippet.thumbnails.default.url;
+          const vidId = item.id.videoId;  
+          const channel = item.snippet.channelTitle;
+          output += `<div class="border rounded border-dark p-3 mb-2 bg-white"><div class="row align-items-center"><div class="col-sm-6 col-md-4 col-lg-3 col-xl-3"><a href="#myModal" data-toggle="modal" data-target="#myModal${vidId}"><img src="${vidThumburl}" alt="No  Image Available." style="width:204px;height:128px"></a><div class="modal" id="myModal${vidId}"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">${vidTitle}</h5><button class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><iframe width="420" height="315" src="https://www.youtube.com/embed/${vidId}" frameborder="0" allowfullscreen></iframe></div><div class="modal-footer"><button class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div></div><div class="col-sm-6 col-md-8 col-lg-9 col-xl-9"><h1 class="title">${vidTitle}</h1><h3>Owned By : ${channel}</h3><p>${vidDescription}</p></div></div></div>`;
+        });
+    
+        if (response.result.prevPageToken) {
+          output += `<br><button type="button" class="btn btn-primary" data-id="${response.result.prevPageToken}" onclick="paginate(event, this)">Prev</button>`;
+        }
+    
+        if (response.result.nextPageToken) {
+          output += `&nbsp<button type="button" class="btn btn-primary" data-id="${response.result.nextPageToken}" onclick="paginate(event, this)">Next</button>`;
+        } 
+        videoList.innerHTML = output;
+      }
+    },
+    function(err) { console.error("Execute error", err); });
+  }
+  else{
+    alert("Enter the keyword!");
+    document.getElementById('vid').innerHTML = "";
+  }
 }
